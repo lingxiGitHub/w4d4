@@ -35,7 +35,9 @@ class Triangle {
 }
 
 class Scalene extends Triangle {
-    super(side1, side2, side3)
+    constructor(side1, side2, side3) {
+        super(side1, side2, side3)
+    }
 
     isValidTriangle = super.validate()
 
@@ -48,8 +50,9 @@ class Scalene extends Triangle {
 }
 
 class Isosceles extends Triangle {
-    super(side1, side2, side3)
-
+    constructor(side1, side2, side3) {
+        super(side1, side2, side3)
+    }
     checkTwosides() {
         return (side1 === side2 && side1 !== side3) || (side2 === side3 && side1 !== side2) || (side1 === side3 && side1 !== side2)
     }
