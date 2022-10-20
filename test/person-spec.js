@@ -32,19 +32,19 @@ describe("Person", () => {
 
     describe("sayHello()", () => {
         it("should greet the user", () => {
-            expect(person1.sayHello()).to.equal(`Hello, ${name}`)
+            expect(person1.sayHello()).to.equal(`Hello, ${name}.`)
         })
     })
 
     describe("visit(otherPerson)", () => {
         it ("Should tell us person1 visited person2", () => {
-            expect(person1.visited(person2)).to.equal(`${name} visited ${otherPerson}`)
+            expect(person1.visit(person2)).to.equal(`${name} visited ${otherPerson}`)
         })
     })
 
     describe("switchVisit(otherPerson)", () => {
        it("Should tell us person2 visited person1", () => {
-            expect(person2.visited(person1)).to.equal(
+            expect(person2.visit(person1)).to.equal(
                `${otherPerson} visited ${name}`
             );
         });
@@ -57,7 +57,7 @@ describe("Person", () => {
                 const newAge = 22
                 person1.update({name: newName, age: newAge})
                 expect(person1.name).to.equal(newName)
-                expect(person.age).to.equal(newAge)
+                expect(person1.age).to.equal(newAge)
             })
         })
 
@@ -68,21 +68,21 @@ describe("Person", () => {
 
             it("should throw a TypeError when the object does not have a name", () => {
               const newName = "Bob";
-              expect(() => person.update({ name: newName })).to.throw(
+              expect(() => person1.update({ name: newName })).to.throw(
                 TypeError
-              );
+              );4
             });
 
             it("should throw a TypeError when the object does not have an age", () => {
               const newAge = 64;
-              expect(() => person.update({ age: newAge })).to.throw(TypeError);
+              expect(() => person1.update({ age: newAge })).to.throw(TypeError);
             });
         });
     })
 
     describe("tryUpdate(obj)", () => {
         context("when successful", () => {
-            it ("should return true if th eupdat ewas successful", () => {
+            it ("should return true if the update was successful", () => {
                 const newName = "bob"
                 const newAge = 23
                 expect(person1.tryUpdate({name: newName, age: newAge})).to.be.true
@@ -90,22 +90,22 @@ describe("Person", () => {
         })
         context("when unsuccessful", () => {
            it("should return true if the update was successful", () => {
-             expect(person.tryUpdate(1)).to.be.false;
+             expect(person1.tryUpdate(1)).to.be.false;
            });
         });
     })
 
      describe("static greetAll(people)", () => {
        it("should greet all the people", () => {
-         expect(Person.greetAll([person, otherPerson])).to.deep.equal([
-           `Hello, ${person.name}.`,
-           `Hello, ${otherPerson.name}.`,
+         expect(Person.greetAll([person1, person2])).to.deep.equal([
+           `Hello, ${person1.name}.`,
+           `Hello, ${person2.name}.`,
          ]);
        });
 
        it("should call sayHello for every person", () => {
          sayHelloSpy = chai.spy.on(Person.prototype, "sayHello");
-         Person.greetAll([person, otherPerson]);
+         Person.greetAll([person1, person2]);
          expect(sayHelloSpy).to.have.been.called.twice;
        });
      });
